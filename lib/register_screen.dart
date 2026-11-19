@@ -15,13 +15,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final confirmController = TextEditingController();
  
   void register() {
-    if (!formKey.currentState!.validate()) return;
-    DemoAuth.register(
-      usernameController.text.trim(), passwordController.text);
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('Registration successful! You can now log in.')));
-    Navigator.of(context).pop();
+  if (!formKey.currentState!.validate()) {
+    return;
   }
+ 
+  DemoAuth.register(
+    usernameController.text.trim(),
+    passwordController.text,
+  );
+ 
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(
+      content: Text(
+        'Registration successful! You can now log in.',
+      ),
+    ),
+  );
+ 
+  Navigator.of(context).pop();
+}
  
   @override
   void dispose() {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart';
+import 'demo_auth.dart';
+import 'dashboard_page.dart';
 import 'calculator_screen.dart';
 import 'profile_page.dart';
-import 'demo_auth.dart';
 import 'social_media/social_media.dart';
  
 class MainScreen extends StatefulWidget {
@@ -15,21 +15,21 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int selectedIndex = 0;
  
- late final List<Widget> pages;
+  late final List<Widget> pages;
  
-@override
-void initState() {
-  super.initState();
+  @override
+  void initState() {
+    super.initState();
  
-  pages = [
-    const HomePage(),
-    const CalculatorScreen(),
-    const ProfilePage(),
-    SocialMediaPage(
-      username: DemoAuth.currentUsername!,
-    ),
-  ];
-}
+    final username = DemoAuth.currentUsername!;
+ 
+    pages = [
+      DashboardPage(username: username),
+      const CalculatorScreen(),
+      SocialMediaPage(username: username),
+      ProfilePage(username: username),
+    ];
+  }
  
   @override
   Widget build(BuildContext context) {
@@ -47,9 +47,9 @@ void initState() {
         },
         destinations: const [
           NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.dashboard_outlined),
+            selectedIcon: Icon(Icons.dashboard),
+            label: 'Dashboard',
           ),
           NavigationDestination(
             icon: Icon(Icons.calculate_outlined),
@@ -57,14 +57,14 @@ void initState() {
             label: 'Calculator',
           ),
           NavigationDestination(
+            icon: Icon(Icons.people_outline),
+            selectedIcon: Icon(Icons.people),
+            label: 'Social',
+          ),
+          NavigationDestination(
             icon: Icon(Icons.person_outline),
             selectedIcon: Icon(Icons.person),
             label: 'Profile',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.share_outlined),
-            selectedIcon: Icon(Icons.share),
-            label: 'Social Media',
           ),
         ],
       ),
